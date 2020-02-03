@@ -1,7 +1,5 @@
-import { App } from "./App";
-
 let taskArray = [""];
-export function makeList(task: string, cb: (blah: string) => void): string[] {
+export function makeList(task: string, cb: (blah: any) => void): string[] {
   taskArray.push(task);
   console.log(taskArray);
 
