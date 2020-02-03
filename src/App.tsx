@@ -1,11 +1,20 @@
 import React from "react";
 import { useState } from "react";
 import "./App.css";
-import { makeList } from "./makeList";
+// import { makeList } from "./makeList";
+
+// let taskArray = [];
 
 export const App: React.FC = () => {
   const [task, setTask] = useState("");
-  // const activeList = makeList(task);
+  const [taskArray, setTaskArray] = useState([""]);
+
+  function handleClick() {
+    const newTaskArray = [...taskArray, task];
+
+    setTaskArray(newTaskArray);
+    setTask("");
+  }
 
   return (
     <>
@@ -20,17 +29,20 @@ export const App: React.FC = () => {
           />
         </label>
 
-        <button onClick={event => makeList(task)}>Save</button>
+        <button onClick={eventClick => handleClick()}>Save</button>
       </div>
-
       <div>Active Tasks:</div>
-      {/* <div>
-        <ol>
-          {activeList.map(item => (
-            <li>{item}</li>
+      <div>
+        {console.log(taskArray)}
+        <ul className="App-list">
+          {taskArray.map(item => (
+            <li>
+              <input type="checkbox" />
+              {item}
+            </li>
           ))}
-        </ol>
-      </div> */}
+        </ul>
+      </div>
     </>
   );
 };
