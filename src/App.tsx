@@ -1,16 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 import "./App.css";
 import { makeList } from "./makeList";
 
 export const App: React.FC = () => {
   const [task, setTask] = useState("");
-  const thing = "";
-  let setThing: any;
-  const activeList = makeList(thing, setThing);
-
-  function handleImput(event: any) {
-    setTask(event.target.value);
-  }
+  // const activeList = makeList(task);
 
   return (
     <>
@@ -20,22 +15,22 @@ export const App: React.FC = () => {
           <input
             type="task"
             placeholder="input task"
-            onChange={event => handleImput(event)}
+            onChange={event => setTask(event.currentTarget.value)}
             value={task}
           />
         </label>
 
-        <button onClick={eventList => makeList(task, setTask)}>Save</button>
+        <button onClick={event => makeList(task)}>Save</button>
       </div>
 
       <div>Active Tasks:</div>
-      <div>
+      {/* <div>
         <ol>
           {activeList.map(item => (
             <li>{item}</li>
           ))}
         </ol>
-      </div>
+      </div> */}
     </>
   );
 };

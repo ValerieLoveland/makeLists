@@ -1,8 +1,7 @@
 let taskArray = [""];
-export function makeList(task: string, cb: (blah: any) => void): string[] {
+export function makeList(task: string): string[] {
   taskArray.push(task);
   console.log(taskArray);
 
-  cb("");
   return taskArray;
 }
