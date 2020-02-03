@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useState } from "react";
+import "./App.css";
+import { makeList } from "./makeList";
 
-const App = () => {
+export const App: React.FC = () => {
+  const [task, setTask] = useState("cats");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <label>
+        Input Task:
+        <input
+          type="task"
+          placeholder="input task"
+          onChange={event => setTask(event.currentTarget.value)}
+          value={task}
+        />
+      </label>
+
+      <button onClick={event => makeList(task, setTask)}>Save</button>
     </div>
   );
-}
+};
 
 export default App;
