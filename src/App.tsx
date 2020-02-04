@@ -1,67 +1,42 @@
 import React from "react";
 import { useState } from "react";
 import "./App.css";
+import { Item } from "./Item";
+import { TaskInput } from "./TaskInput";
 
 export const App: React.FC = () => {
-  // const initialTask={
-  // checked: false,
-  // name: {task},
-  // id: {task},
-  // value: {task},
-  // };
-
-  const [task, setTask] = useState("");
-  const [completed, setCompleted] = useState(false);
   const [taskArray, setTaskArray] = useState<string[]>([]);
 
-  function handleClick() {
+  function onSelect(task: string) {
     const newTaskArray = [...taskArray, task];
 
     setTaskArray(newTaskArray);
-    setTask("");
-  }
-
-  function clickspan1() {
-    setCompleted(true);
   }
 
   return (
     <>
-      <div className="App">
-        <label>
-          Input Task:
-          <input
-            type="task"
-            placeholder="input task"
-            onChange={event => setTask(event.currentTarget.value)}
-            value={task}
-          />
-        </label>
-        <button onClick={eventClick => handleClick()}>Save</button>
-      </div>
-      <div>Active Tasks:</div>
-      <div>
-        {/* {console.log(taskArray)} */}
-        <ul className="App-list">
-          {taskArray.map(item => (
-            <li
-              style={{
-                textDecoration: completed ? "line-through" : "none"
-              }}
-            >
-              <span
-                //style={{ color: "blue", cursor: "pointer" }}
-                onClick={eventClick => clickspan1()}
-              >
-                <input type="checkbox" />
-                {item}{" "}
-              </span>
-            </li>
-          ))}
-        </ul>
+      <TaskInput onSelect={onSelect} />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: "20px"
+        }}
+      >
+        <h3>Active Tasks: </h3>
+        <ul className="App-list">{taskArray.map(mapStringToItem)}</ul>
+
+        {/* <TaskList tasks={activeTasks} />
+        <h3>Done Tasks: </h3>
+        <TaskList tasks={doneTasks} /> */}
       </div>
     </>
   );
 };
 
 export default App;
+
+function mapStringToItem(name: string) {
+  return <Item taskName={name} />;
+}
