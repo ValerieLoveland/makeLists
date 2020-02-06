@@ -9,10 +9,9 @@ export const TaskListItem: React.FC<ItemProps> = props => {
   return (
     <li
       style={{
-        textDecoration: props.task.completed ? "line-through" : "none" //setting the strikethrough depending on if it has completed tag
+        textDecoration: props.task.completed ? "line-through" : "none"
       }}
     >
-      {/* gives all the properties of the checkbox input */}
       <input
         id={props.task.name}
         type="checkbox"
@@ -25,7 +24,6 @@ export const TaskListItem: React.FC<ItemProps> = props => {
 };
 
 interface ItemProps {
-  //making props to share with other files
   task: Task;
   onToggle(taskId: number): void;
 }

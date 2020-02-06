@@ -5,7 +5,6 @@ import { Task } from "./Task";
 export const TaskList: React.FC<TaskListProps> = props => {
   return (
     <>
-      {/* setting the title */}
       <h3>{props.title}</h3>
       <ul className="App-list">
         {props.tasks.map(task => {
