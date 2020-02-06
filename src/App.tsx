@@ -1,11 +1,22 @@
 import React from "react";
 import { useState } from "react";
 import "./App.css";
-import { Item } from "./Item";
+//import { Item } from "./Item";
 import { TaskInput } from "./TaskInput";
+
+let taskName = "";
+function mapStringToItem(name: string) {
+  taskName = name;
+  return taskName;
+}
 
 export const App: React.FC = () => {
   const [taskArray, setTaskArray] = useState<string[]>([]);
+  const [completed, setCompleted] = useState(false);
+
+  const handleChange = () => {
+    setCompleted(!completed);
+  };
 
   function onSelect(task: string) {
     const newTaskArray = [...taskArray, task];
@@ -27,16 +38,20 @@ export const App: React.FC = () => {
         <h3>Active Tasks: </h3>
         <ul className="App-list">{taskArray.map(mapStringToItem)}</ul>
 
-        {/* <TaskList tasks={activeTasks} />
         <h3>Done Tasks: </h3>
-        <TaskList tasks={doneTasks} /> */}
+        {/* <TaskList tasks={activeTasks} />
+      <TaskList tasks={doneTasks} /> */}
       </div>
+      <li
+        style={{
+          textDecoration: completed ? "line-through" : "none"
+        }}
+      >
+        <input id={taskName} type="checkbox" onChange={handleChange} />
+        <label htmlFor={taskName}>{taskName} </label>
+      </li>
     </>
   );
 };
 
 export default App;
-
-function mapStringToItem(name: string) {
-  return <Item taskName={name} />;
-}
