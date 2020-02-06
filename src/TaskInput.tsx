@@ -8,8 +8,9 @@ export const TaskInput: React.FC<TaskInputProps> = props => {
   };
 
   function handleClick() {
-    props.onSelect(input);
-    setInput("");
+    //both of these do the same thing but with click or enter
+    props.onSelect(input); //this save button selects what is in the box and saves it as props
+    setInput(""); //sets input field back to nothing after the save
   }
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -36,5 +37,6 @@ export const TaskInput: React.FC<TaskInputProps> = props => {
 };
 
 interface TaskInputProps {
+  //exporting the data so other files can use it
   onSelect(taskName: string): void;
 }

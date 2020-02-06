@@ -11,8 +11,7 @@ function mapStringToItem(name: string) {
 }
 
 export const App: React.FC = () => {
-  const [taskArray, setTaskArray] = useState<string[]>([]);
-  const [completed, setCompleted] = useState(false);
+  const [taskArray, setTaskArray] = useState<Task[]>([]); //where to set state
 
   const handleChange = () => {
     setCompleted(!completed);
@@ -26,6 +25,7 @@ export const App: React.FC = () => {
 
   return (
     <>
+      {/* the data from the input field */}
       <TaskInput onSelect={onSelect} />
       <div
         style={{
@@ -35,12 +35,17 @@ export const App: React.FC = () => {
           marginTop: "20px"
         }}
       >
-        <h3>Active Tasks: </h3>
-        <ul className="App-list">{taskArray.map(mapStringToItem)}</ul>
-
-        <h3>Done Tasks: </h3>
-        {/* <TaskList tasks={activeTasks} />
-      <TaskList tasks={doneTasks} /> */}
+        {/* displaying done and active tasks and changing the the active and done tasks as clicked */}
+        <TaskList
+          title="Active Tasks"
+          tasks={getActive(taskArray)}
+          onToggle={handleToggle}
+        />
+        <TaskList
+          title="Done Tasks"
+          tasks={getDone(taskArray)}
+          onToggle={handleToggle}
+        />
       </div>
       <li
         style={{
@@ -55,3 +60,23 @@ export const App: React.FC = () => {
 };
 
 export default App;
+
+function getActive(tasks: Task[]) {
+  //filtering the tasks by if it has a completed flag or not
+  return tasks.filter(item => item.completed === false);
+}
+
+function getDone(tasks: Task[]) {
+  return tasks.filter(item => item.completed === true);
+}
+
+function toggleTask(taskArray: Task[], taskId: number) {
+  return taskArray.map(task => {
+    if (task.id === taskId) {
+      //not sure about this what the difference between these two. Is this checking that it is being sent back because it is assigned a new id?
+      return new Task({ ...task, completed: !task.completed }); //I would think this is reassigned if task id and taskid aren't the same
+    }
+
+    return new Task({ ...task }); //send back the task without it changing the completed flag
+  });
+}
